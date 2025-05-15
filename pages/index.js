@@ -3,8 +3,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import 'leaflet/dist/leaflet.css';
-import 'lightbox-react/style.css';
-import Lightbox from 'lightbox-react';
 
 export default function MissingBabygirl() {
   const [showStrawberries, setShowStrawberries] = useState(false);
@@ -26,7 +24,6 @@ export default function MissingBabygirl() {
   const [farewellNote, setFarewellNote] = useState("");
   const [showFarewellInput, setShowFarewellInput] = useState(false);
   const [newImage, setNewImage] = useState("");
-  const [lightboxIndex, setLightboxIndex] = useState(-1);
 
   const handleAddNote = () => {
     if (newNote.trim() !== "") {
@@ -73,7 +70,7 @@ export default function MissingBabygirl() {
           <h2 className="text-3xl font-semibold mb-4">📸 That's My Babygirl</h2>
           <div className="grid grid-cols-2 gap-4">
             {galleryImages.map((src, idx) => (
-              <motion.img key={idx} src={src} alt="Babygirl" className="w-full h-64 object-cover rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer" onClick={() => setLightboxIndex(idx)} />
+              <motion.img key={idx} src={src} alt="Babygirl" className="w-full h-64 object-cover rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer" />
             ))}
           </div>
           <input
@@ -88,17 +85,6 @@ export default function MissingBabygirl() {
           </Button>
         </CardContent>
       </Card>
-
-      {lightboxIndex >= 0 && (
-        <Lightbox
-          mainSrc={galleryImages[lightboxIndex]}
-          nextSrc={galleryImages[(lightboxIndex + 1) % galleryImages.length]}
-          prevSrc={galleryImages[(lightboxIndex + galleryImages.length - 1) % galleryImages.length]}
-          onCloseRequest={() => setLightboxIndex(-1)}
-          onMovePrevRequest={() => setLightboxIndex((lightboxIndex + galleryImages.length - 1) % galleryImages.length)}
-          onMoveNextRequest={() => setLightboxIndex((lightboxIndex + 1) % galleryImages.length)}
-        />
-      )}
     </div>
   );
 }
